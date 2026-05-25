@@ -157,7 +157,7 @@ public class Menu {
                     } 
                     else if (opcaoArte == 2) {
                         limparTela();
-                        System.out.print("Digite o nome do arquivo com a extensão (ex: nave.txt): ");
+                        System.out.print("Digite o nome do arquivo com a extensão (ex: Praia.txt): ");
                         String nomeArquivo = scanner.nextLine().trim();
                         arteAscii = lerArteDeArquivo(nomeArquivo);
                     } 
@@ -211,6 +211,7 @@ public class Menu {
                 limparTela();
                 System.out.print("Digite o login do usuário que deseja adicionar: ");
                 String loginAdd = scanner.nextLine();
+
                 Usuario userAdd = redeSocial.buscarUsuarioPorLogin(loginAdd);
                 if (userAdd != null && !userAdd.equals(eu)) {
                     eu.adicionarAmigo(userAdd);
@@ -244,13 +245,13 @@ public class Menu {
                 System.out.println("Nome atual: " + eu.getNome());
                 System.out.print("Novo nome (ou aperte ENTER para manter): ");
                 String novoNome = scanner.nextLine();
-                if (!novoNome.isBlank()) eu.setNome(novoNome);
+                if (!novoNome.trim().isEmpty()) eu.setNome(novoNome);
 
                 limparTela();
                 System.out.println("Bio atual: " + eu.getBiografia());
                 System.out.print("Nova bio (ou aperte ENTER para manter): ");
                 String novaBio = scanner.nextLine();
-                if (!novaBio.isBlank()) eu.setBiografia(novaBio);
+                if (!novaBio.trim().isEmpty()) eu.setBiografia(novaBio);
                 limparTela();
                 System.out.println("Perfil atualizado!");
                 try { Thread.sleep(1000); } catch (InterruptedException e) {}
@@ -313,7 +314,7 @@ public class Menu {
 
         try {
             // Files.readString é um recurso muito útil do Java moderno (Java 11+)
-            return Files.readString(caminhoArquivo);
+            return new String(Files.readAllBytes(caminhoArquivo));
         } catch (IOException e) {
             System.out.println("\n[ERRO DE ARQUIVO] Não foi possível ler a arte.");
             System.out.println("Tentou buscar em: " + caminhoArquivo.toString());
