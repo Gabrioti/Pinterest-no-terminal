@@ -7,9 +7,5 @@ public class Main {
         menu.iniciar();
     }
 }
-/*
-  |\__/,|   (`\
-_.|o o  |_   ) )
--(((---(((--------
-//FIM
-*/
+
+

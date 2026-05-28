@@ -50,25 +50,32 @@ public class Postagem {
     }
 
     /**
-     * Exibe os detalhes da postagem, incluindo a arte ASCII, caso exista.
+     * Retorna os detalhes da postagem formatados em uma String.
+     * Necessário para a interface de tela dividida.
      */
-    public void exibirPostagem() {
-        System.out.println("--------------------------------------------------");
-        System.out.println("[ID: " + id + "] " + autor.getNome() + " (@" + autor.getLogin() + ") postou:");
-        System.out.println(texto);
+    public String formatarPostagem() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("--------------------------------------------------\n");
+        sb.append("[ID: ").append(id).append("] ").append(autor.getNome()).append(" (@").append(autor.getLogin()).append(") postou:\n");
+        sb.append(texto).append("\n");
         
         // Renderiza a arte ASCII apenas se houver conteúdo
         if (arteAscii != null && !arteAscii.trim().isEmpty()) {
-            System.out.println("\n" + arteAscii);
-        }
-        
-        System.out.println("-> Curtidas: " + getQuantidadeCurtidas());
-        if (!comentarios.isEmpty()) {
-            System.out.println("-> Comentários:");
-            for (Comentario c : comentarios) {
-                System.out.println("   - " + c.toString());
+            sb.append("\n").append(arteAscii);
+            // Garante que a arte termine com uma quebra de linha para não bugar o layout
+            if (!arteAscii.endsWith("\n")) {
+                sb.append("\n");
             }
         }
-        System.out.println("--------------------------------------------------");
+        
+        sb.append("-> Curtidas: ").append(getQuantidadeCurtidas()).append("\n");
+        if (!comentarios.isEmpty()) {
+            sb.append("-> Comentários:\n");
+            for (Comentario c : comentarios) {
+                sb.append("   - ").append(c.toString()).append("\n");
+            }
+        }
+        sb.append("--------------------------------------------------");
+        return sb.toString();
     }
 }

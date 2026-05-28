@@ -88,16 +88,15 @@ public class RedeSocial {
      */
     public List<Postagem> obterFeed() {
         List<Postagem> feed = new ArrayList<>();
-        if (usuarioLogado != null) {
-            // Adiciona posts próprios
-            feed.addAll(usuarioLogado.getPostagens());
-            // Adiciona posts dos amigos
-            for (Usuario amigo : usuarioLogado.getAmigos()) {
-                feed.addAll(amigo.getPostagens());
-            }
-            // Ordenação decrescente pelo ID (mais recentes primeiro)
-            feed.sort((p1, p2) -> Integer.compare(p2.getId(), p1.getId()));
+        
+        // Varre todos os usuários do sistema e pega suas postagens
+        for (Usuario u : usuariosGlobais) {
+            feed.addAll(u.getPostagens());
         }
+        
+        // Ordenação decrescente pelo ID (mais recentes primeiro)
+        feed.sort((p1, p2) -> Integer.compare(p2.getId(), p1.getId()));
+        
         return feed;
     }
 
